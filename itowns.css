@@ -1,9 +1,9 @@
 html {
 	height: 100%
 }
-body { 
-	margin: 0; 
-	overflow:hidden; 
+body {
+	margin: 0;
+	overflow:hidden;
 	height:100%
 }
 
@@ -14,8 +14,11 @@ body {
     padding: 0;
 }
 #menuDiv {
-	position: absolute; 
-	top:0px; 
+	position: absolute;
+	top:0px;
 	margin-left: 0px;
 }
 
+#titre {
+	text-align: center;
+}
