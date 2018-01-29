@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Neuilly-Plaisance3D</title>
+        <meta charset="UTF-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="examples/GUI/dat.gui/dat.gui.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="itowns.css">
+    </head>
+    <body>
+        <div id="titre">
+          <h1>Neuilly-Plaisance, ville d'exception</h1>
+            <div id="coordinate_display">Longitude: 2.506388888888889 ; Latitude: 48.8619444</div>
+            <select id="projectionVD" name="projectionVD">
+            <option value="Geog" selected>Coordonnées Géographiques (EPSG:4326)</option>
+            <option value="Geod">Coordonnées Géodésiques (EPSG:4978)</option>
+            </select>
+        </div>
+        <div id="viewerDiv"></div>
+        <div id="buttons">
+          <div class="">
+            <p>Inclinaison</p>
+          </div>
+          <div class="button" id="pitch45">
+            <p>45°</p>
+          </div>
+          <div class="button" id="pitch315">
+            <p>0°</p>
+          </div>
+          <div class="" id="rotation">
+            <p>Rotation</p>
+          </div>
+          <div class="button" id="head90">
+            <p>90° O</p>
+          </div>
+          <div class="button" id="head270">
+            <p>90° E</p>
+          </div>
+          <div class="button" id="reset">
+            <p>Reset</p>
+          </div>
+        </div>
+
+        <script src="examples/GUI/GuiTools.js"></script>
+        <script src="itowns.js"></script>
+        <script src="michalice.js"></script>
+        <script type="text/javascript">
+            /* global itowns,document,GuiTools*/
+
+            // Initial position
+            var positionOnGlobe = { longitude: 2.506388888888889, latitude: 48.8619444, altitude: 5000000 };
+
+            // iTowns namespace defined here
+            // Creation of the HTML DOM where the view will be initialized
+            var viewerDiv = document.getElementById('viewerDiv');
+            // Creation of the globe
+            var globeView = new itowns.GlobeView(viewerDiv, positionOnGlobe);
+            // Creation of the menu
+            var menuGlobe = new GuiTools('menuDiv', globeView);
+            menuGlobe.view = globeView;
+
+
+            function addLayerCb(layer) {
+                return globeView.addLayer(layer);
+            }
+
+            // Adding Layers
+            var promises = []
+            promises.push(itowns.Fetcher.json('examples/layers/JSONLayers/Ortho.json').then(addLayerCb));
+            promises.push(itowns.Fetcher.json('examples/layers/JSONLayers/WORLD_DTM.json').then(addLayerCb));
+            promises.push(itowns.Fetcher.json('examples/layers/JSONLayers/IGN_MNT_HIGHRES.json').then(addLayerCb));
+
+            menuGlobe.addGUI('RealisticLighting', false,
+                function(newValue) { globeView.setRealisticLightingOn(newValue); });
+
+            // Adding layers in the menu
+            Promise.all(promises).then(function () {
+                menuGlobe.addImageryLayersGUI(globeView.getLayers(function (l) { return l.type === 'color'; }));
+                menuGlobe.addElevationLayersGUI(globeView.getLayers(function(l) { return l.type === 'elevation'; }));
+                console.info('menuGlobe initialized');
+            }).catch( function (e) { console.error(e) });
+
+            // Wait that the globe is well initialized, you should put your function in this event
+            globeView.addEventListener(itowns.GLOBE_VIEW_EVENTS.GLOBE_INITIALIZED, function () {
+                console.info('Globe initialized');
+                globeView.controls.setCameraTargetGeoPositionAdvanced({longitude:2.506388888888889, latitude:48.8619444, zoom:15}, true);
+                document.getElementById('viewerDiv').addEventListener("click", function(){
+                  if (document.getElementById('projectionVD').value=="Geog") {
+                    document.getElementById('coordinate_display').innerHTML = "Longitude : " +     globeView.controls.getCameraTargetGeoPosition().longitude() + " ; Latitude : " +     globeView.controls.getCameraTargetGeoPosition().latitude();
+                  }
+                  if (document.getElementById('projectionVD').value=="Geod") {
+                    var coord=globeView.controls.getCameraTargetGeoPosition();
+                    coord = coord.as('EPSG:4326');
+                    document.getElementById('coordinate_display').innerHTML = "X : " +     coord[0] + " ; Y : " +     coord[1];
+                  }
+                })
+                /*
+                ****************************
+                ****************************
+                CODE HERE
+                CODE HERE
+                CODE HERE
+                ****************************
+                ****************************
+                */
+            });
+
+            window.globeView = globeView;
+          </script>
+    </body>
+</html>

@@ -1,6 +1,6 @@
 {
     "type": "color",
-    "url"       : "https://wxs.ign.fr/va5orxd0pgzvq3jxutqfuy0b/geoportail/v/wms",
+    "url"       : "https://wxs.ign.fr/f1o8nx49816r5mjwisnndyjk/geoportail/v/wms",
     "networkOptions": {
         "crossOrigin": "anonymous"
     },

@@ -1,3 +1,7 @@
+* {
+	box-sizing: border-box;
+}
+
 html {
 	height: 100%
 }
@@ -21,4 +25,42 @@ body {
 
 #titre {
 	text-align: center;
+	color: #1A88FF;
+	background: #E8802B;);
+}
+
+#buttons {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: grey;
+	position: absolute;
+	top: 50%;
+	margin-left: 95%;
+	border-radius: 10px;
+}
+
+.button{
+	padding: 0px 10px;
+	height: 100%;
+	width: 100%;
+	background-color: blue;
+	text-align: center;
+}
+
+#rotation{
+	border-radius: 10px 10px 0px 0px;
+}
+
+#reset{
+	border-radius: 0px 0px 10px 10px;
+}
+
+.button :hover{
+	transition: all 0.2s ease-out;
+}
+
+#buttons .button p {
+	color: white;
 }
