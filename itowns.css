@@ -25,7 +25,8 @@ body {
 
 #titre {
 	text-align: center;
-	background: linear-gradient(to right,#E8802B 0%,#E8802B 36%,  #2CB2FF 36%,#2CB2FF 64%,#E8802B 64%,#E8802B 100%);
+	color: #1A88FF;
+	background: #E8802B;);
 }
 
 #buttons {
