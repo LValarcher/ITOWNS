@@ -20,21 +20,30 @@ reset.addEventListener('click', resetHandler);
 
 function resetHandler(){
   globeView.controls.setOrbitalPosition({heading: 0, tilt: 0}, true);
+  position = 0;
 }
 
 
 var head90 = document.getElementById('head90');
-
+var position = 0;
 head90.addEventListener('click', head90Handler);
 
 function head90Handler(){
-  globeView.controls.setHeading(90, true);
-}
+  position += 90;
+  if (position == 360){
+    position = 0;
+  };
+  globeView.controls.setHeading(position, true);
+};
 
 var head270 = document.getElementById('head270');
 
 head270.addEventListener('click', head270Handler);
 
 function head270Handler(){
-  globeView.controls.setHeading(-90, true);
-}
+  position -= 90;
+  if (position == -360){
+    position = 0;
+  };
+  globeView.controls.setHeading(position, true);
+};

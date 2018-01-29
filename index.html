@@ -96,7 +96,7 @@ and open the template in the editor.
                   }
                   if (document.getElementById('projectionVD').value=="Geod") {
                     var coord=globeView.controls.getCameraTargetGeoPosition();
-                    coord = coord.as('EPSG:4326');
+                    coord = coord.as('EPSG:4326')._values;
                     document.getElementById('coordinate_display').innerHTML = "X : " +     coord[0] + " ; Y : " +     coord[1];
                   }
                 })
