@@ -41,6 +41,18 @@ body {
 
 .button{
 	padding: 0px 10px;
+	height: 100%;
+	width: 100%;
+	background-color: blue;
+	text-align: center;
+}
+
+#pitch45{
+	border-radius: 10px 10px 0px 0px;
+}
+
+#reset{
+	border-radius: 0px 0px 10px 10px;
 }
 
 .button :hover{
