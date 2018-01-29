@@ -16,14 +16,24 @@ and open the template in the editor.
     <body>
         <div id="titre">
           <h1>Neuilly-Plaisance, ville d'exception</h1>
+          <div id="coordinate_display">Longitude: 2.506388888888889 ; Latitude: 48.8619444</div>
+          <select id="projection" name="projection">
+            <option value="Geog" selected>Coordonnées Géographiques (EPSG:4326)</option>
+            <option value="Geod">Coordonnées Géodésiques (EPSG:4978)</option>
         </div>
         <div id="viewerDiv"></div>
         <div id="buttons">
+          <div class="">
+            <p>Inclinaison</p>
+          </div>
           <div class="button" id="pitch45">
             <p>45°</p>
           </div>
           <div class="button" id="pitch315">
-            <p>-45°</p>
+            <p>0°</p>
+          </div>
+          <div class="" id="rotation">
+            <p>Rotation</p>
           </div>
           <div class="button" id="head90">
             <p>90° O</p>
@@ -45,7 +55,7 @@ and open the template in the editor.
             /* global itowns,document,GuiTools*/
 
             // Initial position
-            var positionOnGlobe = { longitude: 2.506388888888889, latitude: 48.8619444, altitude: 5000 };
+            var positionOnGlobe = { longitude: 2.506388888888889, latitude: 48.8619444, altitude: 5000000 };
 
             // iTowns namespace defined here
             // Creation of the HTML DOM where the view will be initialized
@@ -79,8 +89,19 @@ and open the template in the editor.
 
             // Wait that the globe is well initialized, you should put your function in this event
             globeView.addEventListener(itowns.GLOBE_VIEW_EVENTS.GLOBE_INITIALIZED, function () {
-                // eslint-disable-next-line no-console
                 console.info('Globe initialized');
+                globeView.controls.setCameraTargetGeoPositionAdvanced({longitude:2.506388888888889, latitude:48.8619444, zoom:15}, true);
+                document.getElementById('viewerDiv').addEventListener("click", function(){
+                  if (document.getElementById('projection').value=="Geog") {
+                    document.getElementById('coordinate_display').innerHTML = "Longitude : " +     globeView.controls.getCameraTargetGeoPosition().longitude() + " ; Latitude : " +     globeView.controls.getCameraTargetGeoPosition().latitude();
+                  }
+                  if (document.getElementById('projection').value=="Geod") {
+                    var coord=globeView.controls.getCameraTargetPosition();
+                    console.log(coord);
+                    console.log(globeView.controls.getCameraTargetPosition()[0]);
+                    document.getElementById('coordinate_display').innerHTML = "X : " +     globeView.controls.getCameraTargetPosition()[0] + " ; Y : " +     globeView.controls.getCameraTargetPosition()[1];
+                  }
+                })
                 /*
                 ****************************
                 ****************************
