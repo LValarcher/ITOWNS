@@ -1,9 +1,13 @@
+* {
+	box-sizing: border-box;
+}
+
 html {
 	height: 100%
 }
-body { 
-	margin: 0; 
-	overflow:hidden; 
+body {
+	margin: 0;
+	overflow:hidden;
 	height:100%
 }
 
@@ -14,8 +18,35 @@ body {
     padding: 0;
 }
 #menuDiv {
-	position: absolute; 
-	top:0px; 
+	position: absolute;
+	top:0px;
 	margin-left: 0px;
 }
 
+#titre {
+	text-align: center;
+}
+
+#buttons {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: grey;
+	position: absolute;
+	top: 50%;
+	margin-left: 95%;
+	border-radius: 10px;
+}
+
+.button{
+	padding: 0px 10px;
+}
+
+.button :hover{
+	transition: all 0.2s ease-out;
+}
+
+#buttons .button p {
+	color: white;
+}

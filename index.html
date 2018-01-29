@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Globe</title>
+        <title>I love Neuilly</title>
         <meta charset="UTF-8">
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,14 +14,29 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="itowns.css">
     </head>
     <body>
+        <div id="titre">
+          <h1>Neuilly-Plaisance, ville d'exception</h1>
+        </div>
         <div id="viewerDiv"></div>
+        <div id="buttons">
+          <div class="button">
+            <p>45°</p>
+          </div>
+          <div class="button">
+            <p>-45°</p>
+          </div>
+          <div class="button">
+            <p>Reset</p>
+          </div>
+        </div>
+
         <script src="examples/GUI/GuiTools.js"></script>
         <script src="itowns.js"></script>
         <script type="text/javascript">
             /* global itowns,document,GuiTools*/
 
             // Initial position
-            var positionOnGlobe = { longitude: 2.351323, latitude: 48.856712, altitude: 25000000 };
+            var positionOnGlobe = { longitude: 2.506388888888889, latitude: 48.8619444, altitude: 5000 };
 
             // iTowns namespace defined here
             // Creation of the HTML DOM where the view will be initialized
@@ -59,7 +74,7 @@ and open the template in the editor.
                 console.info('Globe initialized');
                 /*
                 ****************************
-                ****************************                
+                ****************************
                 CODE HERE
                 CODE HERE
                 CODE HERE
