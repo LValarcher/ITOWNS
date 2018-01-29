@@ -16,10 +16,11 @@ and open the template in the editor.
     <body>
         <div id="titre">
           <h1>Neuilly-Plaisance, ville d'exception</h1>
-          <div id="coordinate_display">Longitude: 2.506388888888889 ; Latitude: 48.8619444</div>
-          <select id="projection" name="projection">
+            <div id="coordinate_display">Longitude: 2.506388888888889 ; Latitude: 48.8619444</div>
+            <select id="projectionVD" name="projectionVD">
             <option value="Geog" selected>Coordonnées Géographiques (EPSG:4326)</option>
             <option value="Geod">Coordonnées Géodésiques (EPSG:4978)</option>
+            </select>
         </div>
         <div id="viewerDiv"></div>
         <div id="buttons">
@@ -49,8 +50,6 @@ and open the template in the editor.
         <script src="examples/GUI/GuiTools.js"></script>
         <script src="itowns.js"></script>
         <script src="michalice.js"></script>
-
-        </script>
         <script type="text/javascript">
             /* global itowns,document,GuiTools*/
 
@@ -92,14 +91,13 @@ and open the template in the editor.
                 console.info('Globe initialized');
                 globeView.controls.setCameraTargetGeoPositionAdvanced({longitude:2.506388888888889, latitude:48.8619444, zoom:15}, true);
                 document.getElementById('viewerDiv').addEventListener("click", function(){
-                  if (document.getElementById('projection').value=="Geog") {
+                  if (document.getElementById('projectionVD').value=="Geog") {
                     document.getElementById('coordinate_display').innerHTML = "Longitude : " +     globeView.controls.getCameraTargetGeoPosition().longitude() + " ; Latitude : " +     globeView.controls.getCameraTargetGeoPosition().latitude();
                   }
-                  if (document.getElementById('projection').value=="Geod") {
-                    var coord=globeView.controls.getCameraTargetPosition();
-                    console.log(coord);
-                    console.log(globeView.controls.getCameraTargetPosition()[0]);
-                    document.getElementById('coordinate_display').innerHTML = "X : " +     globeView.controls.getCameraTargetPosition()[0] + " ; Y : " +     globeView.controls.getCameraTargetPosition()[1];
+                  if (document.getElementById('projectionVD').value=="Geod") {
+                    var coord=globeView.controls.getCameraTargetGeoPosition();
+                    coord = coord.as('EPSG:4326');
+                    document.getElementById('coordinate_display').innerHTML = "X : " +     coord[0] + " ; Y : " +     coord[1];
                   }
                 })
                 /*
@@ -114,6 +112,6 @@ and open the template in the editor.
             });
 
             window.globeView = globeView;
-</script>
+          </script>
     </body>
 </html>
